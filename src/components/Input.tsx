@@ -1,9 +1,23 @@
 import styled from '@emotion/styled';
+import useTodoAtom from '../atoms/todo/useTodoAtom';
+import { ChangeEvent, useState } from 'react';
 
 const Input = () => {
+  const [input, setInput] = useState('');
+  const { addTodo } = useTodoAtom();
+
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmitForm = () => {
+    addTodo(input);
+    setInput('');
+  };
+
   return (
-    <Form>
-      <TodoInput type="text" placeholder="ADD TODO" />
+    <Form onSubmit={handleSubmitForm}>
+      <TodoInput type="text" placeholder="ADD TODO" value={input} onChange={handleChangeInput} autoFocus />
       <Button type="submit">🔍</Button>
     </Form>
   );
