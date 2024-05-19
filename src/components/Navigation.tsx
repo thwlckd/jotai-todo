@@ -1,15 +1,25 @@
 import { Children } from 'react';
+import { useAtomValue } from 'jotai';
 import styled from '@emotion/styled';
-
-const TABS = ['ALL', 'ACTIVE', 'DONE'];
+import navigationAtom, { tabs } from '../atoms/navigation';
+import useNavigationAtom from '../atoms/navigation/useNavigationAtom';
 
 const Navigation = () => {
+  const activeTab = useAtomValue(navigationAtom);
+  const { activateTab } = useNavigationAtom();
+
+  const handleClickTab = (index: number) => {
+    activateTab(tabs[index]);
+  };
+
   return (
     <NavigationWrpper>
       {Children.toArray(
-        TABS.map((tab) => (
+        tabs.map((tab, i) => (
           <li>
-            <TabButton>{tab}</TabButton>
+            <TabButton isActive={activeTab === tab} onClick={() => handleClickTab(i)}>
+              {tab}
+            </TabButton>
           </li>
         )),
       )}
@@ -27,8 +37,9 @@ const NavigationWrpper = styled.ul`
   font-size: 20px;
 `;
 
-const TabButton = styled.button`
+const TabButton = styled.button<{ isActive: boolean }>`
   cursor: pointer;
+  text-decoration: ${(props) => (props.isActive ? 'underline' : 'none')};
 
   &:hover {
     text-decoration: underline;

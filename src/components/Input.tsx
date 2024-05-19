@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import useTodoAtom from '../atoms/todo/useTodoAtom';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const Input = () => {
   const [input, setInput] = useState('');
@@ -10,7 +10,9 @@ const Input = () => {
     setInput(e.target.value);
   };
 
-  const handleSubmitForm = () => {
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     addTodo(input);
     setInput('');
   };
