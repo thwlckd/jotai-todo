@@ -1,18 +1,10 @@
-import { useAtomValue } from 'jotai';
-import todoAtom from '../atoms/todo';
 import styled from '@emotion/styled';
-import TodoItem from './TodoItem';
+import useTodoAtom from '../atoms/todo/useTodoAtom';
 
 const TodoList = () => {
-  const todoList = useAtomValue(todoAtom);
+  const { getActiveTodoList } = useTodoAtom();
 
-  return (
-    <TodoListWrappper>
-      {todoList.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
-    </TodoListWrappper>
-  );
+  return <TodoListWrappper>{getActiveTodoList()}</TodoListWrappper>;
 };
 
 export default TodoList;
