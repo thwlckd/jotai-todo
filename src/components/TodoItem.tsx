@@ -1,16 +1,23 @@
 import styled from '@emotion/styled';
 import { Todo } from '../types/todo';
+import useTodoAtom from '../atoms/todo/useTodoAtom';
 
 interface Props {
   todo: Todo;
 }
 
 const TodoItem = ({ todo }: Props) => {
+  const { deleteTodo } = useTodoAtom();
+
+  const handleDeleteTodo = () => {
+    deleteTodo(todo.id);
+  };
+
   return (
     <ItemWrapper>
       <CheckBox type="checkbox" defaultChecked={todo.isDone} />
       <TodoContent $isChecked={todo.isDone}>{todo.content}</TodoContent>
-      <DeleteButton>DELETE</DeleteButton>
+      <DeleteButton onClick={handleDeleteTodo}>DELETE</DeleteButton>
     </ItemWrapper>
   );
 };
