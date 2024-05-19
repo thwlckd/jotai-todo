@@ -7,15 +7,19 @@ interface Props {
 }
 
 const TodoItem = ({ todo }: Props) => {
-  const { deleteTodo } = useTodoAtom();
+  const { toggleTodo, deleteTodo } = useTodoAtom();
 
   const handleDeleteTodo = () => {
     deleteTodo(todo.id);
   };
 
+  const handleToggleTodo = () => {
+    toggleTodo(todo.id);
+  };
+
   return (
     <ItemWrapper>
-      <CheckBox type="checkbox" defaultChecked={todo.isDone} />
+      <CheckBox type="checkbox" defaultChecked={todo.isDone} onChange={handleToggleTodo} />
       <TodoContent $isChecked={todo.isDone}>{todo.content}</TodoContent>
       <DeleteButton onClick={handleDeleteTodo}>DELETE</DeleteButton>
     </ItemWrapper>
