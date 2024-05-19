@@ -1,14 +1,16 @@
+import { useAtomValue } from 'jotai';
+import todoAtom from '../atoms/todo';
 import styled from '@emotion/styled';
 import TodoItem from './TodoItem';
 
 const TodoList = () => {
+  const todoList = useAtomValue(todoAtom);
+
   return (
     <TodoListWrappper>
-      <TodoItem todo={{ id: '1', content: 'aa', isDone: false }} />
-      <TodoItem todo={{ id: '2', content: 'bb', isDone: false }} />
-      <TodoItem todo={{ id: '3', content: 'cc', isDone: false }} />
-      <TodoItem todo={{ id: '4', content: 'dd', isDone: false }} />
-      <TodoItem todo={{ id: '5', content: 'ee', isDone: false }} />
+      {todoList.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
     </TodoListWrappper>
   );
 };
